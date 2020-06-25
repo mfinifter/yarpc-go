@@ -149,79 +149,64 @@ func (h handler) SetValue(ctx context.Context, body wire.Value) (thrift.Response
 	return response, err
 }
 
-type stringifier struct{}
+type jsonifier struct{}
 
-// Stringifier returns a thrift.Stringifier capable of stringifying requests
-// and responses for the KeyValue service.
-func Stringifier() thrift.Stringifier {
-	return &stringifier{}
+// JSONifier returns a thrift.JSONifier capable of producing JSON
+// representations of requests and responses for the KeyValue service.
+func JSONifier() thrift.JSONifier {
+	return &jsonifier{}
 }
 
-// GetService gets the name of the service for which this stringifier can stringify.
-func (s *stringifier) GetService() string {
+// GetService gets the name of the service for which this JSONifier can produce
+// JSON representations of requests and responses.
+func (s *jsonifier) GetService() string {
 	return "KeyValue"
 }
 
-// StringifyRequest returns a json string representing the request.
-func (s *stringifier) StringifyRequest(procedure string, requestBody wire.Value) (string, error) {
+// RequestToJSON returns a json representation of the request.
+func (s *jsonifier) RequestToJSON(procedure string, requestBody wire.Value) ([]byte, error) {
 	switch procedure {
 
 	case "GetValue":
 		var args kv.KeyValue_GetValue_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return "", err
+			return nil, err
 		}
-		b, err := json.Marshal(args)
-		if err != nil {
-			return "", err
-		}
-		return string(b), nil
+		return json.Marshal(args)
 
 	case "SetValue":
 		var args kv.KeyValue_SetValue_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return "", err
+			return nil, err
 		}
-		b, err := json.Marshal(args)
-		if err != nil {
-			return "", err
-		}
-		return string(b), nil
+		return json.Marshal(args)
 
 	default:
-		return "", yarpcerrors.InvalidArgumentErrorf(
-			"could not stringify Thrift request for service 'KeyValue' procedure '%s'", procedure)
+		return nil, yarpcerrors.InvalidArgumentErrorf(
+			"could not produce JSON representation of Thrift request for service 'KeyValue' procedure '%s'", procedure)
 	}
 }
 
-// StringifyResponse returns a json string representing the response.
-func (s *stringifier) StringifyResponse(procedure string, responseBody wire.Value) (string, error) {
+// ResponseToJSON returns a json representation of the response.
+func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([]byte, error) {
 	switch procedure {
 
 	case "GetValue":
 		var args kv.KeyValue_GetValue_Result
 		if err := args.FromWire(responseBody); err != nil {
-			return "", err
+			return nil, err
 		}
-		b, err := json.Marshal(args)
-		if err != nil {
-			return "", err
-		}
-		return string(b), nil
+		return json.Marshal(args)
 
 	case "SetValue":
 		var args kv.KeyValue_SetValue_Result
 		if err := args.FromWire(responseBody); err != nil {
-			return "", err
+			return nil, err
 		}
-		b, err := json.Marshal(args)
-		if err != nil {
-			return "", err
-		}
-		return string(b), nil
+		return json.Marshal(args)
 
 	default:
-		return "", yarpcerrors.InvalidArgumentErrorf(
-			"could not stringify Thrift request for service 'KeyValue' procedure '%s'", procedure)
+		return nil, yarpcerrors.InvalidArgumentErrorf(
+			"could not produce JSON representation of Thrift response for service 'KeyValue' procedure '%s'", procedure)
 	}
 }

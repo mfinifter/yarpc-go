@@ -24,10 +24,9 @@ import (
 	"go.uber.org/thriftrw/wire"
 )
 
-// Stringifier provides functionality for turning a service's requests and responses
-// into JSON strings.
-type Stringifier interface {
+// JSONifier marshals a service's requests and responses into JSON strings.
+type JSONifier interface {
 	GetService() string
-	StringifyRequest(string, wire.Value) (string, error)
-	StringifyResponse(string, wire.Value) (string, error)
+	RequestToJSON(procedure string, request wire.Value) ([]byte, error)
+	ResponseToJSON(procedure string, response wire.Value) ([]byte, error)
 }

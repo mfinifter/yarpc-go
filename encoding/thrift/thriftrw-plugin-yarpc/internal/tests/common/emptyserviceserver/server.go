@@ -31,35 +31,36 @@ func New(impl Interface, opts ...thrift.RegisterOption) []transport.Procedure {
 	return procedures
 }
 
-type stringifier struct{}
+type jsonifier struct{}
 
-// Stringifier returns a thrift.Stringifier capable of stringifying requests
-// and responses for the EmptyService service.
-func Stringifier() thrift.Stringifier {
-	return &stringifier{}
+// JSONifier returns a thrift.JSONifier capable of producing JSON
+// representations of requests and responses for the EmptyService service.
+func JSONifier() thrift.JSONifier {
+	return &jsonifier{}
 }
 
-// GetService gets the name of the service for which this stringifier can stringify.
-func (s *stringifier) GetService() string {
+// GetService gets the name of the service for which this JSONifier can produce
+// JSON representations of requests and responses.
+func (s *jsonifier) GetService() string {
 	return "EmptyService"
 }
 
-// StringifyRequest returns a json string representing the request.
-func (s *stringifier) StringifyRequest(procedure string, requestBody wire.Value) (string, error) {
+// RequestToJSON returns a json representation of the request.
+func (s *jsonifier) RequestToJSON(procedure string, requestBody wire.Value) ([]byte, error) {
 	switch procedure {
 
 	default:
-		return "", yarpcerrors.InvalidArgumentErrorf(
-			"could not stringify Thrift request for service 'EmptyService' procedure '%s'", procedure)
+		return nil, yarpcerrors.InvalidArgumentErrorf(
+			"could not produce JSON representation of Thrift request for service 'EmptyService' procedure '%s'", procedure)
 	}
 }
 
-// StringifyResponse returns a json string representing the response.
-func (s *stringifier) StringifyResponse(procedure string, responseBody wire.Value) (string, error) {
+// ResponseToJSON returns a json representation of the response.
+func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([]byte, error) {
 	switch procedure {
 
 	default:
-		return "", yarpcerrors.InvalidArgumentErrorf(
-			"could not stringify Thrift request for service 'EmptyService' procedure '%s'", procedure)
+		return nil, yarpcerrors.InvalidArgumentErrorf(
+			"could not produce JSON representation of Thrift response for service 'EmptyService' procedure '%s'", procedure)
 	}
 }

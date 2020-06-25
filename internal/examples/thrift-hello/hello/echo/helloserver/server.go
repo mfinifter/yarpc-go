@@ -104,57 +104,50 @@ func (h handler) Echo(ctx context.Context, body wire.Value) (thrift.Response, er
 	return response, err
 }
 
-type stringifier struct{}
+type jsonifier struct{}
 
-// Stringifier returns a thrift.Stringifier capable of stringifying requests
-// and responses for the Hello service.
-func Stringifier() thrift.Stringifier {
-	return &stringifier{}
+// JSONifier returns a thrift.JSONifier capable of producing JSON
+// representations of requests and responses for the Hello service.
+func JSONifier() thrift.JSONifier {
+	return &jsonifier{}
 }
 
-// GetService gets the name of the service for which this stringifier can stringify.
-func (s *stringifier) GetService() string {
+// GetService gets the name of the service for which this JSONifier can produce
+// JSON representations of requests and responses.
+func (s *jsonifier) GetService() string {
 	return "Hello"
 }
 
-// StringifyRequest returns a json string representing the request.
-func (s *stringifier) StringifyRequest(procedure string, requestBody wire.Value) (string, error) {
+// RequestToJSON returns a json representation of the request.
+func (s *jsonifier) RequestToJSON(procedure string, requestBody wire.Value) ([]byte, error) {
 	switch procedure {
 
 	case "Echo":
 		var args echo.Hello_Echo_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return "", err
+			return nil, err
 		}
-		b, err := json.Marshal(args)
-		if err != nil {
-			return "", err
-		}
-		return string(b), nil
+		return json.Marshal(args)
 
 	default:
-		return "", yarpcerrors.InvalidArgumentErrorf(
-			"could not stringify Thrift request for service 'Hello' procedure '%s'", procedure)
+		return nil, yarpcerrors.InvalidArgumentErrorf(
+			"could not produce JSON representation of Thrift request for service 'Hello' procedure '%s'", procedure)
 	}
 }
 
-// StringifyResponse returns a json string representing the response.
-func (s *stringifier) StringifyResponse(procedure string, responseBody wire.Value) (string, error) {
+// ResponseToJSON returns a json representation of the response.
+func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([]byte, error) {
 	switch procedure {
 
 	case "Echo":
 		var args echo.Hello_Echo_Result
 		if err := args.FromWire(responseBody); err != nil {
-			return "", err
+			return nil, err
 		}
-		b, err := json.Marshal(args)
-		if err != nil {
-			return "", err
-		}
-		return string(b), nil
+		return json.Marshal(args)
 
 	default:
-		return "", yarpcerrors.InvalidArgumentErrorf(
-			"could not stringify Thrift request for service 'Hello' procedure '%s'", procedure)
+		return nil, yarpcerrors.InvalidArgumentErrorf(
+			"could not produce JSON representation of Thrift response for service 'Hello' procedure '%s'", procedure)
 	}
 }
