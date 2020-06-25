@@ -172,6 +172,72 @@ func (h handler) <.Name>(ctx <$context>.Context, body <$wire>.Value) (<$thrift>.
 }
 <end>
 <end>
+
+type stringifier struct{}
+
+// Stringifier returns a <$thrift>.Stringifier capable of stringifying requests
+// and responses for the <.Name> service.
+func Stringifier() <$thrift>.Stringifier {
+  return &stringifier{}
+}
+
+// GetService gets the name of the service for which this stringifier can stringify.
+func (s *stringifier) GetService() string {
+	return "<.Name>"
+}
+
+<$wire := import "go.uber.org/thriftrw/wire">
+<$yarpcerrors := import "go.uber.org/yarpc/yarpcerrors">
+
+// StringifyRequest returns a json string representing the request.
+func (s *stringifier) StringifyRequest(procedure string, requestBody <$wire>.Value) (string, error) {
+	switch procedure {
+<$module := .Module>
+<range .Functions>
+<$json := import "encoding/json">
+<$prefix := printf "%s.%s_%s_" (import $module.ImportPath) $service.Name .Name>
+	case "<.Name>":
+	  var args <$prefix>Args
+		if err := args.FromWire(requestBody); err != nil {
+		  return "", err
+	  }
+		b, err := <$json>.Marshal(args)
+		if err != nil {
+		  return "", err
+	  }
+		return string(b), nil
+<end>
+	default:
+		return "", <$yarpcerrors>.InvalidArgumentErrorf(
+			"could not stringify Thrift request for service '<$service.Name>' procedure '%s'", procedure)
+	}
+}
+
+// StringifyResponse returns a json string representing the response.
+func (s *stringifier) StringifyResponse(procedure string, responseBody <$wire>.Value) (string, error) {
+	switch procedure {
+<$module := .Module>
+<range .Functions>
+<$json := import "encoding/json">
+<$prefix := printf "%s.%s_%s_" (import $module.ImportPath) $service.Name .Name>
+  <if not .OneWay>
+	case "<.Name>":
+	  var args <$prefix>Result
+		if err := args.FromWire(responseBody); err != nil {
+		  return "", err
+	  }
+		b, err := <$json>.Marshal(args)
+		if err != nil {
+		  return "", err
+	  }
+		return string(b), nil
+  <end>
+<end>
+	default:
+		return "", <$yarpcerrors>.InvalidArgumentErrorf(
+			"could not stringify Thrift request for service '<$service.Name>' procedure '%s'", procedure)
+	}
+}
 `
 
 func serverGenerator(data *templateData, files map[string][]byte) (err error) {

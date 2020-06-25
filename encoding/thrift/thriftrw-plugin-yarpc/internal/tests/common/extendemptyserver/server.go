@@ -5,6 +5,7 @@ package extendemptyserver
 
 import (
 	context "context"
+	json "encoding/json"
 	wire "go.uber.org/thriftrw/wire"
 	transport "go.uber.org/yarpc/api/transport"
 	thrift "go.uber.org/yarpc/encoding/thrift"
@@ -94,4 +95,59 @@ func (h handler) Hello(ctx context.Context, body wire.Value) (thrift.Response, e
 	}
 
 	return response, err
+}
+
+type stringifier struct{}
+
+// Stringifier returns a thrift.Stringifier capable of stringifying requests
+// and responses for the ExtendEmpty service.
+func Stringifier() thrift.Stringifier {
+	return &stringifier{}
+}
+
+// GetService gets the name of the service for which this stringifier can stringify.
+func (s *stringifier) GetService() string {
+	return "ExtendEmpty"
+}
+
+// StringifyRequest returns a json string representing the request.
+func (s *stringifier) StringifyRequest(procedure string, requestBody wire.Value) (string, error) {
+	switch procedure {
+
+	case "Hello":
+		var args common.ExtendEmpty_Hello_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	default:
+		return "", yarpcerrors.InvalidArgumentErrorf(
+			"could not stringify Thrift request for service 'ExtendEmpty' procedure '%s'", procedure)
+	}
+}
+
+// StringifyResponse returns a json string representing the response.
+func (s *stringifier) StringifyResponse(procedure string, responseBody wire.Value) (string, error) {
+	switch procedure {
+
+	case "Hello":
+		var args common.ExtendEmpty_Hello_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	default:
+		return "", yarpcerrors.InvalidArgumentErrorf(
+			"could not stringify Thrift request for service 'ExtendEmpty' procedure '%s'", procedure)
+	}
 }

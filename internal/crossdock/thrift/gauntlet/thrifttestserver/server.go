@@ -25,6 +25,7 @@ package thrifttestserver
 
 import (
 	context "context"
+	json "encoding/json"
 	wire "go.uber.org/thriftrw/wire"
 	transport "go.uber.org/yarpc/api/transport"
 	thrift "go.uber.org/yarpc/encoding/thrift"
@@ -967,4 +968,488 @@ func (h handler) TestVoid(ctx context.Context, body wire.Value) (thrift.Response
 	}
 
 	return response, err
+}
+
+type stringifier struct{}
+
+// Stringifier returns a thrift.Stringifier capable of stringifying requests
+// and responses for the ThriftTest service.
+func Stringifier() thrift.Stringifier {
+	return &stringifier{}
+}
+
+// GetService gets the name of the service for which this stringifier can stringify.
+func (s *stringifier) GetService() string {
+	return "ThriftTest"
+}
+
+// StringifyRequest returns a json string representing the request.
+func (s *stringifier) StringifyRequest(procedure string, requestBody wire.Value) (string, error) {
+	switch procedure {
+
+	case "TestBinary":
+		var args gauntlet.ThriftTest_TestBinary_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestByte":
+		var args gauntlet.ThriftTest_TestByte_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestDouble":
+		var args gauntlet.ThriftTest_TestDouble_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestEnum":
+		var args gauntlet.ThriftTest_TestEnum_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestException":
+		var args gauntlet.ThriftTest_TestException_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestI32":
+		var args gauntlet.ThriftTest_TestI32_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestI64":
+		var args gauntlet.ThriftTest_TestI64_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestInsanity":
+		var args gauntlet.ThriftTest_TestInsanity_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestList":
+		var args gauntlet.ThriftTest_TestList_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestMap":
+		var args gauntlet.ThriftTest_TestMap_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestMapMap":
+		var args gauntlet.ThriftTest_TestMapMap_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestMulti":
+		var args gauntlet.ThriftTest_TestMulti_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestMultiException":
+		var args gauntlet.ThriftTest_TestMultiException_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestNest":
+		var args gauntlet.ThriftTest_TestNest_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestOneway":
+		var args gauntlet.ThriftTest_TestOneway_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestSet":
+		var args gauntlet.ThriftTest_TestSet_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestString":
+		var args gauntlet.ThriftTest_TestString_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestStringMap":
+		var args gauntlet.ThriftTest_TestStringMap_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestStruct":
+		var args gauntlet.ThriftTest_TestStruct_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestTypedef":
+		var args gauntlet.ThriftTest_TestTypedef_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestVoid":
+		var args gauntlet.ThriftTest_TestVoid_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	default:
+		return "", yarpcerrors.InvalidArgumentErrorf(
+			"could not stringify Thrift request for service 'ThriftTest' procedure '%s'", procedure)
+	}
+}
+
+// StringifyResponse returns a json string representing the response.
+func (s *stringifier) StringifyResponse(procedure string, responseBody wire.Value) (string, error) {
+	switch procedure {
+
+	case "TestBinary":
+		var args gauntlet.ThriftTest_TestBinary_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestByte":
+		var args gauntlet.ThriftTest_TestByte_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestDouble":
+		var args gauntlet.ThriftTest_TestDouble_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestEnum":
+		var args gauntlet.ThriftTest_TestEnum_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestException":
+		var args gauntlet.ThriftTest_TestException_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestI32":
+		var args gauntlet.ThriftTest_TestI32_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestI64":
+		var args gauntlet.ThriftTest_TestI64_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestInsanity":
+		var args gauntlet.ThriftTest_TestInsanity_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestList":
+		var args gauntlet.ThriftTest_TestList_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestMap":
+		var args gauntlet.ThriftTest_TestMap_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestMapMap":
+		var args gauntlet.ThriftTest_TestMapMap_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestMulti":
+		var args gauntlet.ThriftTest_TestMulti_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestMultiException":
+		var args gauntlet.ThriftTest_TestMultiException_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestNest":
+		var args gauntlet.ThriftTest_TestNest_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestSet":
+		var args gauntlet.ThriftTest_TestSet_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestString":
+		var args gauntlet.ThriftTest_TestString_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestStringMap":
+		var args gauntlet.ThriftTest_TestStringMap_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestStruct":
+		var args gauntlet.ThriftTest_TestStruct_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestTypedef":
+		var args gauntlet.ThriftTest_TestTypedef_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "TestVoid":
+		var args gauntlet.ThriftTest_TestVoid_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	default:
+		return "", yarpcerrors.InvalidArgumentErrorf(
+			"could not stringify Thrift request for service 'ThriftTest' procedure '%s'", procedure)
+	}
 }

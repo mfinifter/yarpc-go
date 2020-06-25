@@ -25,6 +25,7 @@ package keyvalueserver
 
 import (
 	context "context"
+	json "encoding/json"
 	wire "go.uber.org/thriftrw/wire"
 	transport "go.uber.org/yarpc/api/transport"
 	thrift "go.uber.org/yarpc/encoding/thrift"
@@ -146,4 +147,81 @@ func (h handler) SetValue(ctx context.Context, body wire.Value) (thrift.Response
 	}
 
 	return response, err
+}
+
+type stringifier struct{}
+
+// Stringifier returns a thrift.Stringifier capable of stringifying requests
+// and responses for the KeyValue service.
+func Stringifier() thrift.Stringifier {
+	return &stringifier{}
+}
+
+// GetService gets the name of the service for which this stringifier can stringify.
+func (s *stringifier) GetService() string {
+	return "KeyValue"
+}
+
+// StringifyRequest returns a json string representing the request.
+func (s *stringifier) StringifyRequest(procedure string, requestBody wire.Value) (string, error) {
+	switch procedure {
+
+	case "GetValue":
+		var args kv.KeyValue_GetValue_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "SetValue":
+		var args kv.KeyValue_SetValue_Args
+		if err := args.FromWire(requestBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	default:
+		return "", yarpcerrors.InvalidArgumentErrorf(
+			"could not stringify Thrift request for service 'KeyValue' procedure '%s'", procedure)
+	}
+}
+
+// StringifyResponse returns a json string representing the response.
+func (s *stringifier) StringifyResponse(procedure string, responseBody wire.Value) (string, error) {
+	switch procedure {
+
+	case "GetValue":
+		var args kv.KeyValue_GetValue_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	case "SetValue":
+		var args kv.KeyValue_SetValue_Result
+		if err := args.FromWire(responseBody); err != nil {
+			return "", err
+		}
+		b, err := json.Marshal(args)
+		if err != nil {
+			return "", err
+		}
+		return string(b), nil
+
+	default:
+		return "", yarpcerrors.InvalidArgumentErrorf(
+			"could not stringify Thrift request for service 'KeyValue' procedure '%s'", procedure)
+	}
 }

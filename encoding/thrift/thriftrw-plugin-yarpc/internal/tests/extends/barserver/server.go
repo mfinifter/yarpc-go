@@ -4,9 +4,11 @@
 package barserver
 
 import (
+	wire "go.uber.org/thriftrw/wire"
 	transport "go.uber.org/yarpc/api/transport"
 	thrift "go.uber.org/yarpc/encoding/thrift"
 	fooserver "go.uber.org/yarpc/encoding/thrift/thriftrw-plugin-yarpc/internal/tests/extends/fooserver"
+	yarpcerrors "go.uber.org/yarpc/yarpcerrors"
 )
 
 // Interface is the server-side interface for the Bar service.
@@ -40,4 +42,37 @@ func New(impl Interface, opts ...thrift.RegisterOption) []transport.Procedure {
 	)
 	procedures = append(procedures, thrift.BuildProcedures(service, opts...)...)
 	return procedures
+}
+
+type stringifier struct{}
+
+// Stringifier returns a thrift.Stringifier capable of stringifying requests
+// and responses for the Bar service.
+func Stringifier() thrift.Stringifier {
+	return &stringifier{}
+}
+
+// GetService gets the name of the service for which this stringifier can stringify.
+func (s *stringifier) GetService() string {
+	return "Bar"
+}
+
+// StringifyRequest returns a json string representing the request.
+func (s *stringifier) StringifyRequest(procedure string, requestBody wire.Value) (string, error) {
+	switch procedure {
+
+	default:
+		return "", yarpcerrors.InvalidArgumentErrorf(
+			"could not stringify Thrift request for service 'Bar' procedure '%s'", procedure)
+	}
+}
+
+// StringifyResponse returns a json string representing the response.
+func (s *stringifier) StringifyResponse(procedure string, responseBody wire.Value) (string, error) {
+	switch procedure {
+
+	default:
+		return "", yarpcerrors.InvalidArgumentErrorf(
+			"could not stringify Thrift request for service 'Bar' procedure '%s'", procedure)
+	}
 }
