@@ -134,11 +134,11 @@ func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([
 	switch procedure {
 
 	case "Integer":
-		var args atomic.ReadOnlyStore_Integer_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result atomic.ReadOnlyStore_Integer_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(

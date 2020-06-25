@@ -190,18 +190,18 @@ func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([
 	switch procedure {
 
 	case "BlahBlah":
-		var args gauntlet.SecondService_BlahBlah_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.SecondService_BlahBlah_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "SecondtestString":
-		var args gauntlet.SecondService_SecondtestString_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.SecondService_SecondtestString_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(

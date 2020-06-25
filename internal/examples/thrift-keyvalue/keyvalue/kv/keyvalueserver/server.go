@@ -192,18 +192,18 @@ func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([
 	switch procedure {
 
 	case "GetValue":
-		var args kv.KeyValue_GetValue_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result kv.KeyValue_GetValue_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "SetValue":
-		var args kv.KeyValue_SetValue_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result kv.KeyValue_SetValue_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(

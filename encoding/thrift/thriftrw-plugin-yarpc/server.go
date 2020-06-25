@@ -184,7 +184,7 @@ func JSONifier() <$thrift>.JSONifier {
 // GetService gets the name of the service for which this JSONifier can produce
 // JSON representations of requests and responses.
 func (s *jsonifier) GetService() string {
-	return "<.Name>"
+  return "<.Name>"
 }
 
 <$wire := import "go.uber.org/thriftrw/wire">
@@ -192,44 +192,44 @@ func (s *jsonifier) GetService() string {
 
 // RequestToJSON returns a json representation of the request.
 func (s *jsonifier) RequestToJSON(procedure string, requestBody <$wire>.Value) ([]byte, error) {
-	switch procedure {
+  switch procedure {
 <$module := .Module>
 <range .Functions>
 <$json := import "encoding/json">
 <$prefix := printf "%s.%s_%s_" (import $module.ImportPath) $service.Name .Name>
-	case "<.Name>":
-	  var args <$prefix>Args
-		if err := args.FromWire(requestBody); err != nil {
-		  return nil, err
-	  }
-		return <$json>.Marshal(args)
+  case "<.Name>":
+    var args <$prefix>Args
+    if err := args.FromWire(requestBody); err != nil {
+      return nil, err
+    }
+    return <$json>.Marshal(args)
 <end>
-	default:
-		return nil, <$yarpcerrors>.InvalidArgumentErrorf(
-			"could not produce JSON representation of Thrift request for service '<$service.Name>' procedure '%s'", procedure)
-	}
+  default:
+    return nil, <$yarpcerrors>.InvalidArgumentErrorf(
+      "could not produce JSON representation of Thrift request for service '<$service.Name>' procedure '%s'", procedure)
+  }
 }
 
 // ResponseToJSON returns a json representation of the response.
 func (s *jsonifier) ResponseToJSON(procedure string, responseBody <$wire>.Value) ([]byte, error) {
-	switch procedure {
+  switch procedure {
 <$module := .Module>
 <range .Functions>
 <$json := import "encoding/json">
 <$prefix := printf "%s.%s_%s_" (import $module.ImportPath) $service.Name .Name>
   <if not .OneWay>
-	case "<.Name>":
-	  var args <$prefix>Result
-		if err := args.FromWire(responseBody); err != nil {
-		  return nil, err
-	  }
-		return <$json>.Marshal(args)
+  case "<.Name>":
+    var result <$prefix>Result
+    if err := result.FromWire(responseBody); err != nil {
+      return nil, err
+    }
+    return <$json>.Marshal(result)
   <end>
 <end>
-	default:
-		return nil, <$yarpcerrors>.InvalidArgumentErrorf(
-			"could not produce JSON representation of Thrift response for service '<$service.Name>' procedure '%s'", procedure)
-	}
+  default:
+    return nil, <$yarpcerrors>.InvalidArgumentErrorf(
+      "could not produce JSON representation of Thrift response for service '<$service.Name>' procedure '%s'", procedure)
+  }
 }
 `
 

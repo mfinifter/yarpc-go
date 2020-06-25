@@ -119,11 +119,11 @@ func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([
 	switch procedure {
 
 	case "Name":
-		var args extends.Name_Name_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result extends.Name_Name_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(

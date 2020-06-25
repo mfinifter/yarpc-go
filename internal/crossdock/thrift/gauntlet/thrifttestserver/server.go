@@ -1146,144 +1146,144 @@ func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([
 	switch procedure {
 
 	case "TestBinary":
-		var args gauntlet.ThriftTest_TestBinary_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestBinary_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestByte":
-		var args gauntlet.ThriftTest_TestByte_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestByte_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestDouble":
-		var args gauntlet.ThriftTest_TestDouble_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestDouble_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestEnum":
-		var args gauntlet.ThriftTest_TestEnum_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestEnum_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestException":
-		var args gauntlet.ThriftTest_TestException_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestException_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestI32":
-		var args gauntlet.ThriftTest_TestI32_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestI32_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestI64":
-		var args gauntlet.ThriftTest_TestI64_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestI64_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestInsanity":
-		var args gauntlet.ThriftTest_TestInsanity_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestInsanity_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestList":
-		var args gauntlet.ThriftTest_TestList_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestList_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestMap":
-		var args gauntlet.ThriftTest_TestMap_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestMap_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestMapMap":
-		var args gauntlet.ThriftTest_TestMapMap_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestMapMap_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestMulti":
-		var args gauntlet.ThriftTest_TestMulti_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestMulti_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestMultiException":
-		var args gauntlet.ThriftTest_TestMultiException_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestMultiException_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestNest":
-		var args gauntlet.ThriftTest_TestNest_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestNest_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestSet":
-		var args gauntlet.ThriftTest_TestSet_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestSet_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestString":
-		var args gauntlet.ThriftTest_TestString_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestString_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestStringMap":
-		var args gauntlet.ThriftTest_TestStringMap_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestStringMap_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestStruct":
-		var args gauntlet.ThriftTest_TestStruct_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestStruct_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestTypedef":
-		var args gauntlet.ThriftTest_TestTypedef_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestTypedef_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "TestVoid":
-		var args gauntlet.ThriftTest_TestVoid_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result gauntlet.ThriftTest_TestVoid_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(

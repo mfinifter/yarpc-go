@@ -218,18 +218,18 @@ func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([
 	switch procedure {
 
 	case "CompareAndSwap":
-		var args atomic.Store_CompareAndSwap_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result atomic.Store_CompareAndSwap_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	case "Increment":
-		var args atomic.Store_Increment_Result
-		if err := args.FromWire(responseBody); err != nil {
+		var result atomic.Store_Increment_Result
+		if err := result.FromWire(responseBody); err != nil {
 			return nil, err
 		}
-		return json.Marshal(args)
+		return json.Marshal(result)
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(
