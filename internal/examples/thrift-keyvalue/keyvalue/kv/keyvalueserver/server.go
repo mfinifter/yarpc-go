@@ -25,7 +25,6 @@ package keyvalueserver
 
 import (
 	context "context"
-	json "encoding/json"
 	wire "go.uber.org/thriftrw/wire"
 	transport "go.uber.org/yarpc/api/transport"
 	thrift "go.uber.org/yarpc/encoding/thrift"
@@ -149,64 +148,67 @@ func (h handler) SetValue(ctx context.Context, body wire.Value) (thrift.Response
 	return response, err
 }
 
-type jsonifier struct{}
+type decoder struct{}
 
-// JSONifier returns a thrift.JSONifier capable of producing JSON
-// representations of requests and responses for the KeyValue service.
-func JSONifier() thrift.JSONifier {
-	return &jsonifier{}
+// Decoder returns a thrift.Decoder capable of decoding wire representations
+// of requests and responses for the KeyValue service.
+func Decoder() thrift.Decoder {
+	return &decoder{}
 }
 
-// GetService gets the name of the service for which this JSONifier can produce
-// JSON representations of requests and responses.
-func (s *jsonifier) GetService() string {
+// GetService gets the name of the service for which this Decoder can decode.
+func (s *decoder) GetService() string {
 	return "KeyValue"
 }
 
-// RequestToJSON returns a json representation of the request.
-func (s *jsonifier) RequestToJSON(procedure string, requestBody wire.Value) ([]byte, error) {
+// DecodeRequest decodes a request.
+func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (interface{}, error) {
 	switch procedure {
 
 	case "GetValue":
 		var args kv.KeyValue_GetValue_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'KeyValue procedure 'GetValue': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "SetValue":
 		var args kv.KeyValue_SetValue_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'KeyValue procedure 'SetValue': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(
-			"could not produce JSON representation of Thrift request for service 'KeyValue' procedure '%s'", procedure)
+			"could not decode Thrift request for service 'KeyValue' procedure '%s': unknown procedure", procedure)
 	}
 }
 
-// ResponseToJSON returns a json representation of the response.
-func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([]byte, error) {
+// DecodeResponse decodes a response.
+func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (interface{}, error) {
 	switch procedure {
 
 	case "GetValue":
 		var result kv.KeyValue_GetValue_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'KeyValue procedure 'GetValue': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "SetValue":
 		var result kv.KeyValue_SetValue_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'KeyValue procedure 'SetValue': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(
-			"could not produce JSON representation of Thrift response for service 'KeyValue' procedure '%s'", procedure)
+			"could not decode Thrift response for service 'KeyValue' procedure '%s': unknown procedure", procedure)
 	}
 }

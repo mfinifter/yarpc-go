@@ -24,9 +24,9 @@ import (
 	"go.uber.org/thriftrw/wire"
 )
 
-// JSONifier marshals a service's requests and responses into JSON strings.
-type JSONifier interface {
+// Decoder decodes a service's requests and responses.
+type Decoder interface {
 	GetService() string
-	RequestToJSON(procedure string, request wire.Value) ([]byte, error)
-	ResponseToJSON(procedure string, response wire.Value) ([]byte, error)
+	DecodeRequest(procedure string, request wire.Value) (interface{}, error)
+	DecodeResponse(procedure string, response wire.Value) (interface{}, error)
 }

@@ -25,7 +25,6 @@ package thrifttestserver
 
 import (
 	context "context"
-	json "encoding/json"
 	wire "go.uber.org/thriftrw/wire"
 	transport "go.uber.org/yarpc/api/transport"
 	thrift "go.uber.org/yarpc/encoding/thrift"
@@ -970,323 +969,363 @@ func (h handler) TestVoid(ctx context.Context, body wire.Value) (thrift.Response
 	return response, err
 }
 
-type jsonifier struct{}
+type decoder struct{}
 
-// JSONifier returns a thrift.JSONifier capable of producing JSON
-// representations of requests and responses for the ThriftTest service.
-func JSONifier() thrift.JSONifier {
-	return &jsonifier{}
+// Decoder returns a thrift.Decoder capable of decoding wire representations
+// of requests and responses for the ThriftTest service.
+func Decoder() thrift.Decoder {
+	return &decoder{}
 }
 
-// GetService gets the name of the service for which this JSONifier can produce
-// JSON representations of requests and responses.
-func (s *jsonifier) GetService() string {
+// GetService gets the name of the service for which this Decoder can decode.
+func (s *decoder) GetService() string {
 	return "ThriftTest"
 }
 
-// RequestToJSON returns a json representation of the request.
-func (s *jsonifier) RequestToJSON(procedure string, requestBody wire.Value) ([]byte, error) {
+// DecodeRequest decodes a request.
+func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (interface{}, error) {
 	switch procedure {
 
 	case "TestBinary":
 		var args gauntlet.ThriftTest_TestBinary_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestBinary': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestByte":
 		var args gauntlet.ThriftTest_TestByte_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestByte': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestDouble":
 		var args gauntlet.ThriftTest_TestDouble_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestDouble': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestEnum":
 		var args gauntlet.ThriftTest_TestEnum_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestEnum': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestException":
 		var args gauntlet.ThriftTest_TestException_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestException': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestI32":
 		var args gauntlet.ThriftTest_TestI32_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestI32': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestI64":
 		var args gauntlet.ThriftTest_TestI64_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestI64': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestInsanity":
 		var args gauntlet.ThriftTest_TestInsanity_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestInsanity': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestList":
 		var args gauntlet.ThriftTest_TestList_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestList': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestMap":
 		var args gauntlet.ThriftTest_TestMap_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestMap': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestMapMap":
 		var args gauntlet.ThriftTest_TestMapMap_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestMapMap': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestMulti":
 		var args gauntlet.ThriftTest_TestMulti_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestMulti': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestMultiException":
 		var args gauntlet.ThriftTest_TestMultiException_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestMultiException': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestNest":
 		var args gauntlet.ThriftTest_TestNest_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestNest': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestOneway":
 		var args gauntlet.ThriftTest_TestOneway_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestOneway': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestSet":
 		var args gauntlet.ThriftTest_TestSet_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestSet': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestString":
 		var args gauntlet.ThriftTest_TestString_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestString': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestStringMap":
 		var args gauntlet.ThriftTest_TestStringMap_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestStringMap': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestStruct":
 		var args gauntlet.ThriftTest_TestStruct_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestStruct': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestTypedef":
 		var args gauntlet.ThriftTest_TestTypedef_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestTypedef': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	case "TestVoid":
 		var args gauntlet.ThriftTest_TestVoid_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'ThriftTest procedure 'TestVoid': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(
-			"could not produce JSON representation of Thrift request for service 'ThriftTest' procedure '%s'", procedure)
+			"could not decode Thrift request for service 'ThriftTest' procedure '%s': unknown procedure", procedure)
 	}
 }
 
-// ResponseToJSON returns a json representation of the response.
-func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([]byte, error) {
+// DecodeResponse decodes a response.
+func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (interface{}, error) {
 	switch procedure {
 
 	case "TestBinary":
 		var result gauntlet.ThriftTest_TestBinary_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestBinary': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestByte":
 		var result gauntlet.ThriftTest_TestByte_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestByte': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestDouble":
 		var result gauntlet.ThriftTest_TestDouble_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestDouble': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestEnum":
 		var result gauntlet.ThriftTest_TestEnum_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestEnum': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestException":
 		var result gauntlet.ThriftTest_TestException_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestException': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestI32":
 		var result gauntlet.ThriftTest_TestI32_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestI32': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestI64":
 		var result gauntlet.ThriftTest_TestI64_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestI64': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestInsanity":
 		var result gauntlet.ThriftTest_TestInsanity_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestInsanity': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestList":
 		var result gauntlet.ThriftTest_TestList_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestList': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestMap":
 		var result gauntlet.ThriftTest_TestMap_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestMap': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestMapMap":
 		var result gauntlet.ThriftTest_TestMapMap_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestMapMap': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestMulti":
 		var result gauntlet.ThriftTest_TestMulti_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestMulti': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestMultiException":
 		var result gauntlet.ThriftTest_TestMultiException_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestMultiException': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestNest":
 		var result gauntlet.ThriftTest_TestNest_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestNest': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestSet":
 		var result gauntlet.ThriftTest_TestSet_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestSet': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestString":
 		var result gauntlet.ThriftTest_TestString_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestString': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestStringMap":
 		var result gauntlet.ThriftTest_TestStringMap_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestStringMap': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestStruct":
 		var result gauntlet.ThriftTest_TestStruct_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestStruct': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestTypedef":
 		var result gauntlet.ThriftTest_TestTypedef_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestTypedef': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	case "TestVoid":
 		var result gauntlet.ThriftTest_TestVoid_Result
 		if err := result.FromWire(responseBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift response for service 'ThriftTest procedure 'TestVoid': %w", err)
 		}
-		return json.Marshal(result)
+		return result, nil
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(
-			"could not produce JSON representation of Thrift response for service 'ThriftTest' procedure '%s'", procedure)
+			"could not decode Thrift response for service 'ThriftTest' procedure '%s': unknown procedure", procedure)
 	}
 }

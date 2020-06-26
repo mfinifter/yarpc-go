@@ -25,7 +25,6 @@ package onewayserver
 
 import (
 	context "context"
-	json "encoding/json"
 	wire "go.uber.org/thriftrw/wire"
 	transport "go.uber.org/yarpc/api/transport"
 	thrift "go.uber.org/yarpc/encoding/thrift"
@@ -85,43 +84,43 @@ func (h handler) Echo(ctx context.Context, body wire.Value) error {
 	return h.impl.Echo(ctx, args.Token)
 }
 
-type jsonifier struct{}
+type decoder struct{}
 
-// JSONifier returns a thrift.JSONifier capable of producing JSON
-// representations of requests and responses for the Oneway service.
-func JSONifier() thrift.JSONifier {
-	return &jsonifier{}
+// Decoder returns a thrift.Decoder capable of decoding wire representations
+// of requests and responses for the Oneway service.
+func Decoder() thrift.Decoder {
+	return &decoder{}
 }
 
-// GetService gets the name of the service for which this JSONifier can produce
-// JSON representations of requests and responses.
-func (s *jsonifier) GetService() string {
+// GetService gets the name of the service for which this Decoder can decode.
+func (s *decoder) GetService() string {
 	return "Oneway"
 }
 
-// RequestToJSON returns a json representation of the request.
-func (s *jsonifier) RequestToJSON(procedure string, requestBody wire.Value) ([]byte, error) {
+// DecodeRequest decodes a request.
+func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (interface{}, error) {
 	switch procedure {
 
 	case "Echo":
 		var args oneway.Oneway_Echo_Args
 		if err := args.FromWire(requestBody); err != nil {
-			return nil, err
+			return nil, yarpcerrors.InvalidArgumentErrorf(
+				"could not decode Thrift request for service 'Oneway procedure 'Echo': %w", err)
 		}
-		return json.Marshal(args)
+		return args, nil
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(
-			"could not produce JSON representation of Thrift request for service 'Oneway' procedure '%s'", procedure)
+			"could not decode Thrift request for service 'Oneway' procedure '%s': unknown procedure", procedure)
 	}
 }
 
-// ResponseToJSON returns a json representation of the response.
-func (s *jsonifier) ResponseToJSON(procedure string, responseBody wire.Value) ([]byte, error) {
+// DecodeResponse decodes a response.
+func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (interface{}, error) {
 	switch procedure {
 
 	default:
 		return nil, yarpcerrors.InvalidArgumentErrorf(
-			"could not produce JSON representation of Thrift response for service 'Oneway' procedure '%s'", procedure)
+			"could not decode Thrift response for service 'Oneway' procedure '%s': unknown procedure", procedure)
 	}
 }
