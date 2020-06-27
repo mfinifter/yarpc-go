@@ -63,3 +63,20 @@ func Server(opts ...thrift.RegisterOption) interface{} {
 		return ServerResult{Procedures: procedures}
 	}
 }
+
+// Decoder provides a thrift.Decoder for Echo to an Fx application. It is
+// annotated with the value group "thriftdecoders".
+//
+// 	fx.Provide(
+// 		func(h *MyEchoHandler) echoserver.Interface {
+// 			return h
+// 		},
+// 		echofx.Server(),
+// 		echofx.Decoder(),
+// 	)
+func Decoder() interface{} {
+	return fx.Annotated{
+		Group:  "thriftdecoders",
+		Target: echoserver.Decoder,
+	}
+}

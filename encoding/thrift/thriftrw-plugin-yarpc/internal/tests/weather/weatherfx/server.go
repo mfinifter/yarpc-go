@@ -43,3 +43,20 @@ func Server(opts ...thrift.RegisterOption) interface{} {
 		return ServerResult{Procedures: procedures}
 	}
 }
+
+// Decoder provides a thrift.Decoder for Weather to an Fx application. It is
+// annotated with the value group "thriftdecoders".
+//
+// 	fx.Provide(
+// 		func(h *MyWeatherHandler) weatherserver.Interface {
+// 			return h
+// 		},
+// 		weatherfx.Server(),
+// 		weatherfx.Decoder(),
+// 	)
+func Decoder() interface{} {
+	return fx.Annotated{
+		Group:  "thriftdecoders",
+		Target: weatherserver.Decoder,
+	}
+}

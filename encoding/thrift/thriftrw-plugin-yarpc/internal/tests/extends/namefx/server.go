@@ -43,3 +43,20 @@ func Server(opts ...thrift.RegisterOption) interface{} {
 		return ServerResult{Procedures: procedures}
 	}
 }
+
+// Decoder provides a thrift.Decoder for Name to an Fx application. It is
+// annotated with the value group "thriftdecoders".
+//
+// 	fx.Provide(
+// 		func(h *MyNameHandler) nameserver.Interface {
+// 			return h
+// 		},
+// 		namefx.Server(),
+// 		namefx.Decoder(),
+// 	)
+func Decoder() interface{} {
+	return fx.Annotated{
+		Group:  "thriftdecoders",
+		Target: nameserver.Decoder,
+	}
+}

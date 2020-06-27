@@ -43,3 +43,20 @@ func Server(opts ...thrift.RegisterOption) interface{} {
 		return ServerResult{Procedures: procedures}
 	}
 }
+
+// Decoder provides a thrift.Decoder for ExtendEmpty to an Fx application. It is
+// annotated with the value group "thriftdecoders".
+//
+// 	fx.Provide(
+// 		func(h *MyExtendEmptyHandler) extendemptyserver.Interface {
+// 			return h
+// 		},
+// 		extendemptyfx.Server(),
+// 		extendemptyfx.Decoder(),
+// 	)
+func Decoder() interface{} {
+	return fx.Annotated{
+		Group:  "thriftdecoders",
+		Target: extendemptyserver.Decoder,
+	}
+}

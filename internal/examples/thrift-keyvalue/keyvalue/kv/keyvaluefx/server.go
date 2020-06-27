@@ -63,3 +63,20 @@ func Server(opts ...thrift.RegisterOption) interface{} {
 		return ServerResult{Procedures: procedures}
 	}
 }
+
+// Decoder provides a thrift.Decoder for KeyValue to an Fx application. It is
+// annotated with the value group "thriftdecoders".
+//
+// 	fx.Provide(
+// 		func(h *MyKeyValueHandler) keyvalueserver.Interface {
+// 			return h
+// 		},
+// 		keyvaluefx.Server(),
+// 		keyvaluefx.Decoder(),
+// 	)
+func Decoder() interface{} {
+	return fx.Annotated{
+		Group:  "thriftdecoders",
+		Target: keyvalueserver.Decoder,
+	}
+}

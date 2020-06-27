@@ -43,3 +43,20 @@ func Server(opts ...thrift.RegisterOption) interface{} {
 		return ServerResult{Procedures: procedures}
 	}
 }
+
+// Decoder provides a thrift.Decoder for ReadOnlyStore to an Fx application. It is
+// annotated with the value group "thriftdecoders".
+//
+// 	fx.Provide(
+// 		func(h *MyReadOnlyStoreHandler) readonlystoreserver.Interface {
+// 			return h
+// 		},
+// 		readonlystorefx.Server(),
+// 		readonlystorefx.Decoder(),
+// 	)
+func Decoder() interface{} {
+	return fx.Annotated{
+		Group:  "thriftdecoders",
+		Target: readonlystoreserver.Decoder,
+	}
+}

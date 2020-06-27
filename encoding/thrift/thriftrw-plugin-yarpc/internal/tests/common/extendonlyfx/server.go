@@ -43,3 +43,20 @@ func Server(opts ...thrift.RegisterOption) interface{} {
 		return ServerResult{Procedures: procedures}
 	}
 }
+
+// Decoder provides a thrift.Decoder for ExtendOnly to an Fx application. It is
+// annotated with the value group "thriftdecoders".
+//
+// 	fx.Provide(
+// 		func(h *MyExtendOnlyHandler) extendonlyserver.Interface {
+// 			return h
+// 		},
+// 		extendonlyfx.Server(),
+// 		extendonlyfx.Decoder(),
+// 	)
+func Decoder() interface{} {
+	return fx.Annotated{
+		Group:  "thriftdecoders",
+		Target: extendonlyserver.Decoder,
+	}
+}

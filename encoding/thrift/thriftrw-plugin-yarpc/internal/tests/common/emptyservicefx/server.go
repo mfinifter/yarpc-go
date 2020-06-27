@@ -43,3 +43,20 @@ func Server(opts ...thrift.RegisterOption) interface{} {
 		return ServerResult{Procedures: procedures}
 	}
 }
+
+// Decoder provides a thrift.Decoder for EmptyService to an Fx application. It is
+// annotated with the value group "thriftdecoders".
+//
+// 	fx.Provide(
+// 		func(h *MyEmptyServiceHandler) emptyserviceserver.Interface {
+// 			return h
+// 		},
+// 		emptyservicefx.Server(),
+// 		emptyservicefx.Decoder(),
+// 	)
+func Decoder() interface{} {
+	return fx.Annotated{
+		Group:  "thriftdecoders",
+		Target: emptyserviceserver.Decoder,
+	}
+}

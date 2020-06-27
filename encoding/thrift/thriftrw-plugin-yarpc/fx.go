@@ -160,6 +160,23 @@ func Server(opts ...<$thrift>.RegisterOption) interface{} {
 		return ServerResult{Procedures: procedures}
 	}
 }
+
+// Decoder provides a <$thrift>.Decoder for <.Name> to an Fx application. It is
+// annotated with the value group "thriftdecoders".
+//
+// 	fx.Provide(
+// 		func(h *My<.Name>Handler) <$server>.Interface {
+// 			return h
+// 		},
+// 		<$pkgname>.Server(),
+// 		<$pkgname>.Decoder(),
+// 	)
+func Decoder() interface{} {
+  return <$fx>.Annotated{
+    Group: "thriftdecoders",
+    Target: <$server>.Decoder,
+  }
+}
 `
 
 func fxGenerator(data *templateData, files map[string][]byte) (err error) {

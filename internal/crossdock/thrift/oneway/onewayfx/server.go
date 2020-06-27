@@ -63,3 +63,20 @@ func Server(opts ...thrift.RegisterOption) interface{} {
 		return ServerResult{Procedures: procedures}
 	}
 }
+
+// Decoder provides a thrift.Decoder for Oneway to an Fx application. It is
+// annotated with the value group "thriftdecoders".
+//
+// 	fx.Provide(
+// 		func(h *MyOnewayHandler) onewayserver.Interface {
+// 			return h
+// 		},
+// 		onewayfx.Server(),
+// 		onewayfx.Decoder(),
+// 	)
+func Decoder() interface{} {
+	return fx.Annotated{
+		Group:  "thriftdecoders",
+		Target: onewayserver.Decoder,
+	}
+}
