@@ -165,7 +165,7 @@ func (s *decoder) GetService() string {
 func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "GetValue":
+	case "KeyValue::GetValue":
 		var args kv.KeyValue_GetValue_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -173,7 +173,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "SetValue":
+	case "KeyValue::SetValue":
 		var args kv.KeyValue_SetValue_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -191,7 +191,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "GetValue":
+	case "KeyValue::GetValue":
 		var result kv.KeyValue_GetValue_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -199,7 +199,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "SetValue":
+	case "KeyValue::SetValue":
 		var result kv.KeyValue_SetValue_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(

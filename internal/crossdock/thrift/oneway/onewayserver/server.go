@@ -101,7 +101,7 @@ func (s *decoder) GetService() string {
 func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "Echo":
+	case "Oneway::Echo":
 		var args oneway.Oneway_Echo_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(

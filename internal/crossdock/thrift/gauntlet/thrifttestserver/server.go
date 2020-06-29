@@ -986,7 +986,7 @@ func (s *decoder) GetService() string {
 func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "TestBinary":
+	case "ThriftTest::TestBinary":
 		var args gauntlet.ThriftTest_TestBinary_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -994,7 +994,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestByte":
+	case "ThriftTest::TestByte":
 		var args gauntlet.ThriftTest_TestByte_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1002,7 +1002,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestDouble":
+	case "ThriftTest::TestDouble":
 		var args gauntlet.ThriftTest_TestDouble_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1010,7 +1010,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestEnum":
+	case "ThriftTest::TestEnum":
 		var args gauntlet.ThriftTest_TestEnum_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1018,7 +1018,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestException":
+	case "ThriftTest::TestException":
 		var args gauntlet.ThriftTest_TestException_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1026,7 +1026,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestI32":
+	case "ThriftTest::TestI32":
 		var args gauntlet.ThriftTest_TestI32_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1034,7 +1034,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestI64":
+	case "ThriftTest::TestI64":
 		var args gauntlet.ThriftTest_TestI64_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1042,7 +1042,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestInsanity":
+	case "ThriftTest::TestInsanity":
 		var args gauntlet.ThriftTest_TestInsanity_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1050,7 +1050,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestList":
+	case "ThriftTest::TestList":
 		var args gauntlet.ThriftTest_TestList_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1058,7 +1058,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestMap":
+	case "ThriftTest::TestMap":
 		var args gauntlet.ThriftTest_TestMap_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1066,7 +1066,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestMapMap":
+	case "ThriftTest::TestMapMap":
 		var args gauntlet.ThriftTest_TestMapMap_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1074,7 +1074,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestMulti":
+	case "ThriftTest::TestMulti":
 		var args gauntlet.ThriftTest_TestMulti_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1082,7 +1082,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestMultiException":
+	case "ThriftTest::TestMultiException":
 		var args gauntlet.ThriftTest_TestMultiException_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1090,7 +1090,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestNest":
+	case "ThriftTest::TestNest":
 		var args gauntlet.ThriftTest_TestNest_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1098,7 +1098,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestOneway":
+	case "ThriftTest::TestOneway":
 		var args gauntlet.ThriftTest_TestOneway_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1106,7 +1106,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestSet":
+	case "ThriftTest::TestSet":
 		var args gauntlet.ThriftTest_TestSet_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1114,7 +1114,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestString":
+	case "ThriftTest::TestString":
 		var args gauntlet.ThriftTest_TestString_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1122,7 +1122,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestStringMap":
+	case "ThriftTest::TestStringMap":
 		var args gauntlet.ThriftTest_TestStringMap_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1130,7 +1130,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestStruct":
+	case "ThriftTest::TestStruct":
 		var args gauntlet.ThriftTest_TestStruct_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1138,7 +1138,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestTypedef":
+	case "ThriftTest::TestTypedef":
 		var args gauntlet.ThriftTest_TestTypedef_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1146,7 +1146,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "TestVoid":
+	case "ThriftTest::TestVoid":
 		var args gauntlet.ThriftTest_TestVoid_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1164,7 +1164,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "TestBinary":
+	case "ThriftTest::TestBinary":
 		var result gauntlet.ThriftTest_TestBinary_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1172,7 +1172,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestByte":
+	case "ThriftTest::TestByte":
 		var result gauntlet.ThriftTest_TestByte_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1180,7 +1180,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestDouble":
+	case "ThriftTest::TestDouble":
 		var result gauntlet.ThriftTest_TestDouble_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1188,7 +1188,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestEnum":
+	case "ThriftTest::TestEnum":
 		var result gauntlet.ThriftTest_TestEnum_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1196,7 +1196,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestException":
+	case "ThriftTest::TestException":
 		var result gauntlet.ThriftTest_TestException_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1204,7 +1204,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestI32":
+	case "ThriftTest::TestI32":
 		var result gauntlet.ThriftTest_TestI32_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1212,7 +1212,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestI64":
+	case "ThriftTest::TestI64":
 		var result gauntlet.ThriftTest_TestI64_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1220,7 +1220,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestInsanity":
+	case "ThriftTest::TestInsanity":
 		var result gauntlet.ThriftTest_TestInsanity_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1228,7 +1228,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestList":
+	case "ThriftTest::TestList":
 		var result gauntlet.ThriftTest_TestList_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1236,7 +1236,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestMap":
+	case "ThriftTest::TestMap":
 		var result gauntlet.ThriftTest_TestMap_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1244,7 +1244,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestMapMap":
+	case "ThriftTest::TestMapMap":
 		var result gauntlet.ThriftTest_TestMapMap_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1252,7 +1252,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestMulti":
+	case "ThriftTest::TestMulti":
 		var result gauntlet.ThriftTest_TestMulti_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1260,7 +1260,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestMultiException":
+	case "ThriftTest::TestMultiException":
 		var result gauntlet.ThriftTest_TestMultiException_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1268,7 +1268,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestNest":
+	case "ThriftTest::TestNest":
 		var result gauntlet.ThriftTest_TestNest_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1276,7 +1276,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestSet":
+	case "ThriftTest::TestSet":
 		var result gauntlet.ThriftTest_TestSet_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1284,7 +1284,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestString":
+	case "ThriftTest::TestString":
 		var result gauntlet.ThriftTest_TestString_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1292,7 +1292,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestStringMap":
+	case "ThriftTest::TestStringMap":
 		var result gauntlet.ThriftTest_TestStringMap_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1300,7 +1300,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestStruct":
+	case "ThriftTest::TestStruct":
 		var result gauntlet.ThriftTest_TestStruct_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1308,7 +1308,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestTypedef":
+	case "ThriftTest::TestTypedef":
 		var result gauntlet.ThriftTest_TestTypedef_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -1316,7 +1316,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "TestVoid":
+	case "ThriftTest::TestVoid":
 		var result gauntlet.ThriftTest_TestVoid_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(

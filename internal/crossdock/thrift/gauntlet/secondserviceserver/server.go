@@ -163,7 +163,7 @@ func (s *decoder) GetService() string {
 func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "BlahBlah":
+	case "SecondService::BlahBlah":
 		var args gauntlet.SecondService_BlahBlah_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -171,7 +171,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "SecondtestString":
+	case "SecondService::SecondtestString":
 		var args gauntlet.SecondService_SecondtestString_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -189,7 +189,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "BlahBlah":
+	case "SecondService::BlahBlah":
 		var result gauntlet.SecondService_BlahBlah_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -197,7 +197,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "SecondtestString":
+	case "SecondService::SecondtestString":
 		var result gauntlet.SecondService_SecondtestString_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(

@@ -120,7 +120,7 @@ func (s *decoder) GetService() string {
 func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "Echo":
+	case "Hello::Echo":
 		var args echo.Hello_Echo_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -138,7 +138,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "Echo":
+	case "Hello::Echo":
 		var result echo.Hello_Echo_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(

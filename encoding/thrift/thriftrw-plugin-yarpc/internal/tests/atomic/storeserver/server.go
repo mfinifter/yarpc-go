@@ -184,7 +184,7 @@ func (s *decoder) GetService() string {
 func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "CompareAndSwap":
+	case "Store::CompareAndSwap":
 		var args atomic.Store_CompareAndSwap_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -192,7 +192,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "Forget":
+	case "Store::Forget":
 		var args atomic.Store_Forget_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -200,7 +200,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 		}
 		return args, nil
 
-	case "Increment":
+	case "Store::Increment":
 		var args atomic.Store_Increment_Args
 		if err := args.FromWire(requestBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -218,7 +218,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody wire.Value) (inter
 func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (interface{}, error) {
 	switch procedure {
 
-	case "CompareAndSwap":
+	case "Store::CompareAndSwap":
 		var result atomic.Store_CompareAndSwap_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(
@@ -226,7 +226,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody wire.Value) (int
 		}
 		return result, nil
 
-	case "Increment":
+	case "Store::Increment":
 		var result atomic.Store_Increment_Result
 		if err := result.FromWire(responseBody); err != nil {
 			return nil, yarpcerrors.InvalidArgumentErrorf(

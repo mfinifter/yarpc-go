@@ -195,7 +195,7 @@ func (s *decoder) DecodeRequest(procedure string, requestBody <$wire>.Value) (in
 <$module := .Module>
 <range .Functions>
 <$prefix := printf "%s.%s_%s_" (import $module.ImportPath) $service.Name .Name>
-  case "<.Name>":
+	case "<$service.Name>::<.Name>":
     var args <$prefix>Args
     if err := args.FromWire(requestBody); err != nil {
       return nil, <$yarpcerrors>.InvalidArgumentErrorf(
@@ -216,7 +216,7 @@ func (s *decoder) DecodeResponse(procedure string, responseBody <$wire>.Value) (
 <range .Functions>
 <$prefix := printf "%s.%s_%s_" (import $module.ImportPath) $service.Name .Name>
   <if not .OneWay>
-  case "<.Name>":
+	case "<$service.Name>::<.Name>":
     var result <$prefix>Result
     if err := result.FromWire(responseBody); err != nil {
       return nil, <$yarpcerrors>.InvalidArgumentErrorf(
